@@ -41,14 +41,18 @@ extern void ftrace_call_old(void);
  * !CONFIG_ARM_UNWIND.
  */
 
-void *return_address(unsigned int);
+void *return_address(unsigned int level);
+
 
 #else
 
+void *return_address(unsigned int level);
+/*
 extern inline void *return_address(unsigned int level)
 {
 	return NULL;
 }
+*/
 
 #endif
 
