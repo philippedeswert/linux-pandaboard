@@ -547,12 +547,6 @@
 #define MICROCHIP_USB_BOARD_PID	0x000A /* CDC RS-232 Emulation Demo */
 
 /*
- * Hornby Elite
- */
-#define HORNBY_VID		0x04D8
-#define HORNBY_ELITE_PID	0x000A
-
-/*
  * RATOC REX-USB60F
  */
 #define RATOC_VENDOR_ID		0x0584
