@@ -602,9 +602,7 @@ static void bdi_wb_shutdown(struct backing_dev_info *bdi)
 
 	/*
 	 * Finally, kill the kernel thread. We don't need to be RCU
-	 * safe anymore, since the bdi is gone from visibility. Force
-	 * unfreeze of the thread before calling kthread_stop(), otherwise
-	 * it would never exet if it is currently stuck in the refrigerator.
+	 * safe anymore, since the bdi is gone from visibility.
 	 */
 	spin_lock_bh(&bdi->wb_lock);
 	task = bdi->wb.task;
@@ -612,7 +610,6 @@ static void bdi_wb_shutdown(struct backing_dev_info *bdi)
 	spin_unlock_bh(&bdi->wb_lock);
 
 	if (task) {
-		thaw_process(task);
 		kthread_stop(task);
 	}
 }

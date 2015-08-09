@@ -474,7 +474,9 @@ retry:
 	for (i = 0; i < desc->length - cntr; i++)
 		desc->ubuf[i] = desc->ubuf[i + cntr];
 
+	spin_lock_irq(&desc->iuspin);
 	desc->length -= cntr;
+	spin_unlock_irq(&desc->iuspin);
 	/* in case we had outstanding data */
 	if (!desc->length)
 		clear_bit(WDM_READ, &desc->flags);
@@ -917,24 +919,7 @@ static struct usb_driver wdm_driver = {
 	.supports_autosuspend = 1,
 };
 
-/* --- low level module stuff --- */
-
-static int __init wdm_init(void)
-{
-	int rv;
-
-	rv = usb_register(&wdm_driver);
-
-	return rv;
-}
-
-static void __exit wdm_exit(void)
-{
-	usb_deregister(&wdm_driver);
-}
-
-module_init(wdm_init);
-module_exit(wdm_exit);
+module_usb_driver(wdm_driver);
 
 MODULE_AUTHOR(DRIVER_AUTHOR);
 MODULE_DESCRIPTION(DRIVER_DESC);

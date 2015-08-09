@@ -22,7 +22,7 @@
 #define DRIVER_AUTHOR "Qualcomm Inc"
 #define DRIVER_DESC "Qualcomm USB Serial driver"
 
-static int debug;
+static bool debug;
 
 #define DEVICE_G1K(v, p) \
 	USB_DEVICE(v, p), .driver_info = 1
@@ -145,8 +145,6 @@ static int qcprobe(struct usb_serial *serial, const struct usb_device_id *id)
 		return -ENOMEM;
 
 	spin_lock_init(&data->susp_lock);
-
-	usb_enable_autosuspend(serial->dev);
 
 	switch (nintf) {
 	case 1:

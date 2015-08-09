@@ -220,6 +220,7 @@ extern void secondary_cpu_time_init(void);
 extern void iSeries_time_init_early(void);
 
 extern void decrementer_check_overflow(void);
+DECLARE_PER_CPU(u64, decrementers_next_tb);
 
 #endif /* __KERNEL__ */
 #endif /* __POWERPC_TIME_H */
